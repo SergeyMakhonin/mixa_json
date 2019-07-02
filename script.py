@@ -10,9 +10,13 @@ class RootObject:
         self.event = []
 
     def load_json_data(self, path):
+        # this works on python 3 only
         with open(path, encoding='utf-8') as fd:
             data = fd.read()
             self.json_data = json.loads(data)
+
+    def load_json_from_string(self, json_string):
+        self.json_data = json.loads(json_string, encoding='utf-8')
 
     def parse_json_data(self):
         for key in self.json_data:
@@ -44,8 +48,8 @@ class RootObject:
         print('Sport types available:')
         sport_names = []
         for sport in self.sports:
+            sport_names.extend([*sport])
             print([*sport][0])
-            sport_names.append([*sport][0])
         return sport_names
 
 
@@ -64,6 +68,8 @@ if __name__ == '__main__':
 
     # load JSON file
     rt.load_json_data(path)
+    #from test_string import json_data
+    #rt.load_json_from_string(json_data)
 
     # parse loaded JSON file
     rt.parse_json_data()
