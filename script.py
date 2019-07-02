@@ -14,9 +14,11 @@ class RootObject:
         with open(path, encoding='utf-8') as fd:
             data = fd.read()
             self.json_data = json.loads(data)
+        return True
 
     def load_json_from_string(self, json_string):
         self.json_data = json.loads(json_string, encoding='utf-8')
+        return self.json_data
 
     def parse_json_data(self):
         for key in self.json_data:
@@ -43,6 +45,7 @@ class RootObject:
                                             )
                                        }
                                       )
+        return True
 
     def return_all_sports(self):
         print('Sport types available:')
