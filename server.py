@@ -25,4 +25,5 @@ server.register_function(get_os, 'get_os')
 server.register_instance(RootObject())
 
 # Run the server's main loop
+print('Server is running.')
 server.serve_forever()
