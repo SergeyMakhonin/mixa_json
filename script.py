@@ -30,7 +30,7 @@ class JsonGrinder:
                 self.league.append({self.json_data[key]['league'][league_id]['name']:
                                         (key,
                                          'league',
-                                         self.json_data[key]['league'][league_id])
+                                         self.json_data[key]['league'][league_id]['id'])
                                     }
                                    )
 
@@ -39,9 +39,9 @@ class JsonGrinder:
                     self.event.append({self.json_data[key]['league'][league_id]['event'][event_id]['name']:
                                            (key,
                                             'league',
-                                            self.json_data[key]['league'][league_id],
+                                            self.json_data[key]['league'][league_id]['id'],
                                             'event',
-                                            self.json_data[key]['league'][league_id]['event'][event_id]
+                                            event_id
                                             )
                                        }
                                       )
@@ -54,6 +54,16 @@ class JsonGrinder:
             sport_names.extend([*sport])
             print([*sport][0])
         return sport_names
+
+    def return_leagues(self, sport_type):
+        print('Leagues available for %s:' % sport_type)
+        sport_id = self.sports[sport_type]
+        league_names = []
+        for league in self.league:
+            for league_name, league_info in league.items():
+                if sport_id == league_info[0]:
+                    league_names.append(league_name)
+        return league_names
 
 
 if __name__ == '__main__':
