@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CookComputing.XmlRpc;
+using System.Linq;
 
 
-[XmlRpcUrl("http://192.168.0.163:55999/RPC2")]
+
+[XmlRpcUrl("http://localhost:55999/RPC2")]
 public interface IGetValues : IXmlRpcProxy
 {
     [XmlRpcMethod("get_os")]
     string testMyClient();
 
     [XmlRpcMethod("return_all_sports")]
-    List<string> GetSportValues();
+    string GetSportValues();
 }
 
 
@@ -25,12 +27,13 @@ public class CookClient {
         IGetValues proxy = XmlRpcProxyGen.Create<IGetValues>();
         string ret = proxy.testMyClient();
         Debug.Log(ret.ToString());
+        
         return ret;
     }
-    public List<string> GetSportValues()
+    public string GetSportValues()
     {
         IGetValues proxy = XmlRpcProxyGen.Create<IGetValues>();
-        List<string> ret = proxy.GetSportValues();
+        string ret = proxy.GetSportValues();
         return ret;
     }
 
