@@ -84,6 +84,7 @@ class JsonGrinder:
             return ','.join(league_names)
         except NameError:
             log('{sport_type} does not exist in current JSON version.'.format(sport_type=sport_type))
+            return '{sport_type} does not exist in current JSON version.'.format(sport_type=sport_type)
 
 
 if __name__ == '__main__':
