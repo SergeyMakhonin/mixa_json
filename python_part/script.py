@@ -1,6 +1,6 @@
 import json
 import sys
-import datetime
+from python_part.simple_logger import log
 
 
 class JsonGrinder:
@@ -52,19 +52,19 @@ class JsonGrinder:
         return True
 
     def return_all_sports(self):
-        print('Sport types available:')
+        log('Sport types available:')
         sport_names = []
         for sport in self.sports:
             sport_names.extend([*sport])
 
             # show found sports
-            print([*sport][0])
+            log([*sport][0])
 
         # return comma separated string
         return ','.join(sport_names)
 
     def return_leagues(self, sport_type):
-        print('Leagues available for %s:' % sport_type)
+        log('Leagues available for %s:' % sport_type)
         for sport_dict in self.sports:
             if sport_type in sport_dict.keys():
                 sport_id = sport_dict[sport_type]
@@ -78,18 +78,17 @@ class JsonGrinder:
 
             # return found leagues
             for l in league_names:
-                print(l)
+                log(l)
 
             # return comma separated string
             return ','.join(league_names)
         except NameError:
-            print('[{time}] {sport_type} does not exist in current JSON version.'.format(time=datetime.datetime.now(),
-                                                                                         sport_type=sport_type))
+            log('{sport_type} does not exist in current JSON version.'.format(sport_type=sport_type))
 
 
 if __name__ == '__main__':
     # set path
-    # if not path provided set path to 'live.json'
+    # if no path provided set path to 'live.json'
     try:
         path = sys.argv[1]
     except IndexError as e:

@@ -1,9 +1,9 @@
 import sys
-import datetime
 import platform
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
 from python_part.script import JsonGrinder
+from python_part.simple_logger import log
 
 
 # Restrict to a particular path.
@@ -31,10 +31,9 @@ if __name__ == '__main__':
         server.register_instance(JsonGrinder())
 
         # Run the server's main loop
-        print('[{timestamp}] Server is running on {host}:{port}.'.format(timestamp=datetime.datetime.now(),
-                                                                         host=host,
-                                                                         port=port))
+        log('Server is running on {host}:{port}.'.format(host=host,
+                                                         port=port))
         server.serve_forever()
     except KeyboardInterrupt:
-        print('[%s] Interrupted from keyboard.\nStopped.' % datetime.datetime.now())
+        log('Interrupted from keyboard.\nStopped.')
         sys.exit(0)
