@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CookComputing.XmlRpc;
-using UnityEngine.UI;
+
 
 [XmlRpcUrl("http://192.168.0.163:55999/RPC2")]
 public interface IGetValues : IXmlRpcProxy
@@ -18,7 +18,7 @@ public interface IGetValues : IXmlRpcProxy
 
 
 
-public class CookClient : MonoBehaviour {
+public class CookClient {
 
     public string GetOS()
     {

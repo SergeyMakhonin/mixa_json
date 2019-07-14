@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class MyDataMgr : MonoBehaviour
 {
-    public CookClient gv;
 
+    public CookClient gv = new CookClient();
     public Dropdown sportdd;
     public Dropdownmgr sportmgr;
     public List<string> sportlist = new List<string>();
@@ -77,6 +78,9 @@ public class MyDataMgr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        
+
         sportmgr = sportdd.GetComponent<Dropdownmgr>();
         leaguemgr = leaguedd.GetComponent<Dropdownmgr>();
         eventmgr = eventdd.GetComponent<Dropdownmgr>();
