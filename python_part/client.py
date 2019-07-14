@@ -1,6 +1,6 @@
 import xmlrpc.client
 
-s = xmlrpc.client.ServerProxy('http://localhost:55999/RPC2')
+s = xmlrpc.client.ServerProxy('http://localhost:8000/RPC2')
 
 # Print list of available methods
 

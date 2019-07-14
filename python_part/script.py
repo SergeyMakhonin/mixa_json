@@ -1,5 +1,6 @@
 import json
 import sys
+import datetime
 
 
 class JsonGrinder:
@@ -26,7 +27,7 @@ class JsonGrinder:
     def parse_json_data(self):
         for key in self.json_data:
             # get all sport types on this level
-            self.sports.append({self.json_data[key]['name']: {self.json_data[key]['id']}})
+            self.sports.append({self.json_data[key]['name']: str(self.json_data[key]['id'])})
 
             # get all league types on this level
             for league_id in self.json_data[key]['league']:
@@ -55,18 +56,35 @@ class JsonGrinder:
         sport_names = []
         for sport in self.sports:
             sport_names.extend([*sport])
+
+            # show found sports
             print([*sport][0])
-        return sport_names
+
+        # return comma separated string
+        return ','.join(sport_names)
 
     def return_leagues(self, sport_type):
         print('Leagues available for %s:' % sport_type)
-        sport_id = self.sports[sport_type]
-        league_names = []
-        for league in self.league:
-            for league_name, league_info in league.items():
-                if sport_id == league_info[0]:
-                    league_names.append(league_name)
-        return league_names
+        for sport_dict in self.sports:
+            if sport_type in sport_dict.keys():
+                sport_id = sport_dict[sport_type]
+                break
+        try:
+            league_names = []
+            for league in self.league:
+                for league_name, league_info in league.items():
+                    if sport_id == league_info[0]:
+                        league_names.append(league_name)
+
+            # return found leagues
+            for l in league_names:
+                print(l)
+
+            # return comma separated string
+            return ','.join(league_names)
+        except NameError:
+            print('[{time}] {sport_type} does not exist in current JSON version.'.format(time=datetime.datetime.now(),
+                                                                                         sport_type=sport_type))
 
 
 if __name__ == '__main__':

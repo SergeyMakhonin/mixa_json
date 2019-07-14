@@ -20,7 +20,7 @@ if __name__ == '__main__':
     try:
         # Create server
         host = 'localhost'
-        port = 55999
+        port = 8000
         server = SimpleXMLRPCServer((host, port))
 
         # Register methods
