@@ -3,7 +3,7 @@ import datetime
 import platform
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
-from script import JsonGrinder
+from python_part.script import JsonGrinder
 
 
 # Restrict to a particular path.
