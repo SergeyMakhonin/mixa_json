@@ -2,7 +2,7 @@ import json
 import sys
 
 
-class RootObject:
+class JsonGrinder:
     def __init__(self):
         self.json_data = None
         self.sports = []
@@ -66,8 +66,8 @@ if __name__ == '__main__':
         print('Exception: %s.' % e)
         print('No input file provided, using default "%s".' % path)
 
-    # init RootObject that will contain all JSON data parsed
-    rt = RootObject()
+    # init JsonGrinder that will contain all JSON data parsed
+    rt = JsonGrinder()
 
     # load JSON file
     rt.load_json_data(path)
