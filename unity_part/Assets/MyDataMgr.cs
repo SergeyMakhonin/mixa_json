@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 
 public class MyDataMgr : MonoBehaviour
@@ -41,6 +42,12 @@ public class MyDataMgr : MonoBehaviour
     public void PopulateList(Dropdown dropdown, List<string> options)
     {
         dropdown.AddOptions(options);
+    }
+
+    public List<string> Lister(string line)
+    {
+        List<string> ret = line.Split(',').ToList();
+        return ret;
     }
 
     public void SportValueChanged(Dropdown dropdown)
@@ -103,7 +110,8 @@ public class MyDataMgr : MonoBehaviour
         if(sportdd.options.Count == 0 && String.IsNullOrEmpty(selectedsport) )
         {
             //запросить у сервера sportlist
-            sportlist = gv.GetSportValues();
+
+            sportlist = Lister(gv.GetSportValues());
 
             Debug.Log("requesting sports");
 
