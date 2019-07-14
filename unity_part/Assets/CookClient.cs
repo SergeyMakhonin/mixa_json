@@ -5,8 +5,12 @@ using CookComputing.XmlRpc;
 using System.Linq;
 
 
+<<<<<<< HEAD
 
 [XmlRpcUrl("http://localhost:55999/RPC2")]
+=======
+[XmlRpcUrl("http://localhost:8000/RPC2")]
+>>>>>>> d41609e27ede935a79cb6551b84bb7ca68855cff
 public interface IGetValues : IXmlRpcProxy
 {
     [XmlRpcMethod("get_os")]
@@ -33,7 +37,11 @@ public class CookClient {
     public string GetSportValues()
     {
         IGetValues proxy = XmlRpcProxyGen.Create<IGetValues>();
+<<<<<<< HEAD
         string ret = proxy.GetSportValues();
+=======
+		List<string> ret = proxy.GetSportValues().ToList();
+>>>>>>> d41609e27ede935a79cb6551b84bb7ca68855cff
         return ret;
     }
 

@@ -3,7 +3,7 @@ import datetime
 import platform
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
-from script import JsonGrinder
+from python_part.script import JsonGrinder
 
 
 # Restrict to a particular path.
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     try:
         # Create server
         host = 'localhost'
-        port = 55999
+        port = 8000
         server = SimpleXMLRPCServer((host, port))
 
         # Register methods
