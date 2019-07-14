@@ -19,7 +19,9 @@ def get_os():
 if __name__ == '__main__':
     try:
         # Create server
-        server = SimpleXMLRPCServer(("localhost", 55999))
+        host = 'localhost'
+        port = 55999
+        server = SimpleXMLRPCServer((host, port))
 
         # Register methods
         server.register_introspection_functions()
@@ -29,7 +31,9 @@ if __name__ == '__main__':
         server.register_instance(JsonGrinder())
 
         # Run the server's main loop
-        print('[%s] Server is running.' % datetime.datetime.now())
+        print('[{timestamp}] Server is running on {host}:{port}.'.format(timestamp=datetime.datetime.now(),
+                                                                         host=host,
+                                                                         port=port))
         server.serve_forever()
     except KeyboardInterrupt:
         print('[%s] Interrupted from keyboard.\nStopped.' % datetime.datetime.now())
