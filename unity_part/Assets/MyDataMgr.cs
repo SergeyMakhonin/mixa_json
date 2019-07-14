@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class MyDataMgr : MonoBehaviour
 {
+    public CookClient gv;
+
     public Dropdown sportdd;
     public Dropdownmgr sportmgr;
     public List<string> sportlist = new List<string>();
@@ -32,6 +34,7 @@ public class MyDataMgr : MonoBehaviour
     public string selectedbet;
 
     public Text selectedodd;
+    public Text os;
     public string odd;
 
     public void PopulateList(Dropdown dropdown, List<string> options)
@@ -42,6 +45,8 @@ public class MyDataMgr : MonoBehaviour
     public void SportValueChanged(Dropdown dropdown)
     {
         ////запросить у сервера leaguelist по selectedsport
+        
+
         selectedsport = sportmgr.selectedname;
         Debug.Log(selectedsport);
         Debug.Log(sportmgr.selectedname);
@@ -82,6 +87,7 @@ public class MyDataMgr : MonoBehaviour
         leaguedd.onValueChanged.AddListener(delegate { LeagueValueChanged(leaguedd); });
 
 
+        Debug.Log(gv.GetOS().ToString());
         
         
     }
@@ -93,6 +99,8 @@ public class MyDataMgr : MonoBehaviour
         if(sportdd.options.Count == 0 && String.IsNullOrEmpty(selectedsport) )
         {
             //запросить у сервера sportlist
+            sportlist = gv.GetSportValues();
+
             Debug.Log("requesting sports");
 
             sportmgr.options = sportlist;
