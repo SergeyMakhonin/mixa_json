@@ -2,10 +2,12 @@ import json
 import sys
 from python_part.simple_logger import log
 
+# this code is for old version or JSON data
+
 
 class JsonGrinder:
     def __init__(self):
-        self.path = 'python_part/live.json'
+        self.path = 'data/live.json.old'
         self.json_data = None
         self.sports = []
         self.league = []
@@ -89,11 +91,11 @@ class JsonGrinder:
 
 if __name__ == '__main__':
     # set path
-    # if no path provided set path to 'live.json'
+    # if no path provided set path to 'live.json.old'
     try:
         path = sys.argv[1]
     except IndexError as e:
-        path = 'python_part/live.json'
+        path = 'data/live.json.old'
         print('Exception: %s.' % e)
         print('No input file provided, using default "%s".' % path)
 

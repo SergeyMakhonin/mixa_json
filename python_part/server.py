@@ -2,7 +2,8 @@ import sys
 import platform
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
-from python_part.script import JsonGrinder
+
+from python_part.processing import JsonBlazer
 from python_part.simple_logger import log
 
 
@@ -28,7 +29,7 @@ if __name__ == '__main__':
         server.register_function(get_os, 'get_os')
 
         # Register an instance; all the methods of the instance are published as XML-RPC methods
-        server.register_instance(JsonGrinder())
+        server.register_instance(JsonBlazer())
 
         # Run the server's main loop
         log('Server is running on {host}:{port}.'.format(host=host,
