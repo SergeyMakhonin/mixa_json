@@ -7,7 +7,7 @@ from python_part.simple_logger import log
 
 class JsonGrinder:
     def __init__(self):
-        self.path = 'data/live.json.old'
+        self.path = 'data/live.json'
         self.json_data = None
         self.sports = []
         self.league = []
@@ -91,11 +91,11 @@ class JsonGrinder:
 
 if __name__ == '__main__':
     # set path
-    # if no path provided set path to 'live.json.old'
+    # if no path provided set path to 'live.json'
     try:
         path = sys.argv[1]
     except IndexError as e:
-        path = 'data/live.json.old'
+        path = 'data/live.json'
         print('Exception: %s.' % e)
         print('No input file provided, using default "%s".' % path)
 

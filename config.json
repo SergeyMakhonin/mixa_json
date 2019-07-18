@@ -1,0 +1,9 @@
+{
+  "data_source": {
+    "test_source": {
+      "url": "http://217.29.54.149:62001/apl.json",
+      "file": "../data/test.json"
+    }
+  },
+  "wait": 15
+}
