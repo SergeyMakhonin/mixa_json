@@ -4,6 +4,7 @@ from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
 from olymp_processing import JsonBlazer
 from simple_logger import log
+from json_updater import json_reader
 
 
 # Restrict to a particular path.
@@ -18,10 +19,13 @@ def get_os():
 
 if __name__ == '__main__':
     try:
+        # read config
+        json_config = json_reader('config.json')
+
         # Create server
-        host = 'localhost'
-        port = 8000
-        server = SimpleXMLRPCServer((host, port))
+        host = json_config['server_host']
+        port = json_config['server_port']
+        server = SimpleXMLRPCServer((host, int(port)))
 
         # Register methods
         server.register_introspection_functions()

@@ -2,8 +2,12 @@
   "data_source": {
     "test_source": {
       "url": "http://217.29.54.149:62001/apl.json",
-      "file": "../data/test.json"
+      "file": "data/feed_4.json"
     }
   },
-  "wait": 15
+  "server_data_file": "data/feed_4.json",
+  "server_host": "localhost",
+  "server_port": "8000",
+  "wait": 60,
+  "log_file": "log.txt"
 }
