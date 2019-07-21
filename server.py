@@ -34,7 +34,7 @@ if __name__ == '__main__':
         server.register_function(get_os, 'get_os')
 
         # Register an instance; all the methods of the instance are published as XML-RPC methods
-        server.register_instance(JsonBlazer('data/feed_4.json'))
+        server.register_instance(JsonBlazer(json_config['server_data_file']))
 
         # init json updater and put it to own thread
         ju = JsonUpdaterDaemon(json_reader('config.json'))
@@ -42,7 +42,7 @@ if __name__ == '__main__':
         updater_thread.start()
 
         # Run the server's main loop
-        log('\nServer is running on {host}:{port}.'.format(host=host, port=port))
+        log('Server is running on {host}:{port}.'.format(host=host, port=port))
         server.serve_forever()
     except KeyboardInterrupt:
         log('Interrupted from keyboard.\nStopped.')

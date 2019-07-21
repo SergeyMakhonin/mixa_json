@@ -11,7 +11,15 @@ class JsonBlazer:
         self.parse_json()
         log('JSON blazer initialized')
 
+    def flush(self):
+        self.json_data = None
+        self.outcomes = {}
+        self.sports = {}
+
     def parse_json(self):
+
+        # to avoid data stacking erase existing data
+        self.flush()
 
         # read json file
         with open(self.json_path, encoding='utf-8') as fd:
