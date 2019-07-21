@@ -5,7 +5,8 @@ from python_part.simple_logger import log
 class JsonBlazer:
     def __init__(self, path):
         self.json_data = None
-        self.sports = {}
+        self.outcomes = {}  # outcomes is a list of dicts {'match_name': [{key: value}, {key: value}]}
+        self.sports = {}  # sports is a dict of {'football': [{keys: values}, {keys: values}, {keys: values}]}
         self.json_path = path
         self.parse_json()
         log('JSON blazer initialized')
@@ -15,7 +16,7 @@ class JsonBlazer:
         # read json file
         with open(self.json_path, encoding='utf-8') as fd:
             data = fd.read()
-            self.json_data = json.loads(data)
+            self.json_data = json.loads(data, encoding='utf-8')
 
         for i in self.json_data:
             if i['sport_type_title'] in self.sports:
@@ -46,6 +47,9 @@ class JsonBlazer:
                     ]
                     }
                 )
+            sub_dict_outcomes = {i['topic']: i['outcomes']}
+            # if we'll need to find specific outcomes do it here
+            self.outcomes.update(sub_dict_outcomes)
 
     def return_all_sports(self):
         log('Available sports:')
@@ -53,7 +57,7 @@ class JsonBlazer:
             log(i)
         return ','.join(self.sports.keys())
 
-    def return_all_topics(self, topic):
+    def return_all_topics(self, topic='Футбол'):
         topics = []
         log('Available events for %s:' % topic)
         for i in self.sports[topic]:
@@ -61,8 +65,22 @@ class JsonBlazer:
             log(i['topic'])
         return ','.join(topics)
 
+    def return_outcomes(self, topic_name):
+        # return values 'П1,Х,П2'
+        try:
+            outcomes_to_return = []
+            for bet in self.outcomes[topic_name]:
+                bet_value = str(bet['factor_value'])
+                outcomes_to_return.append(bet_value)
+                log(bet_value)
+            return ','.join(outcomes_to_return)
+        except KeyError:
+            log('Unable to find %s in current JSON data.' % topic_name)
+            return False
+
 
 if __name__ == '__main__':
-    j = JsonBlazer('../data/remote.json')
-    j.return_all_sports()
-    j.return_all_topics('Футбол')
+    j = JsonBlazer('../data/feed_4.json')
+#    j.return_all_sports()
+    j.return_all_topics()
+    j.return_outcomes('Вест Хэм - Манчестер Сити')

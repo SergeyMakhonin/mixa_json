@@ -2,9 +2,9 @@ import sys
 import platform
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
-
-from python_part.processing import JsonBlazer
+from python_part.olymp_processing import JsonBlazer
 from python_part.simple_logger import log
+from python_part.json_updater import json_reader
 
 
 # Restrict to a particular path.
@@ -29,7 +29,7 @@ if __name__ == '__main__':
         server.register_function(get_os, 'get_os')
 
         # Register an instance; all the methods of the instance are published as XML-RPC methods
-        server.register_instance(JsonBlazer())
+        server.register_instance(JsonBlazer('../data/feed_4.json'))
 
         # Run the server's main loop
         log('Server is running on {host}:{port}.'.format(host=host,
