@@ -50,6 +50,7 @@ class JsonBlazer:
             sub_dict_outcomes = {i['topic']: i['outcomes']}
             # if we'll need to find specific outcomes do it here
             self.outcomes.update(sub_dict_outcomes)
+        return True
 
     def return_all_sports(self):
         log('Available sports:')

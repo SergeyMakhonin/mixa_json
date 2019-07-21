@@ -5,6 +5,8 @@ from xmlrpc.server import SimpleXMLRPCRequestHandler
 from olymp_processing import JsonBlazer
 from simple_logger import log
 from json_updater import json_reader
+from json_updater import JsonUpdaterDaemon
+import threading
 
 
 # Restrict to a particular path.
@@ -34,9 +36,13 @@ if __name__ == '__main__':
         # Register an instance; all the methods of the instance are published as XML-RPC methods
         server.register_instance(JsonBlazer('data/feed_4.json'))
 
+        # init json updater and put it to own thread
+        ju = JsonUpdaterDaemon(json_reader('config.json'))
+        updater_thread = threading.Thread(target=ju.run)
+        updater_thread.start()
+
         # Run the server's main loop
-        log('Server is running on {host}:{port}.'.format(host=host,
-                                                         port=port))
+        log('\nServer is running on {host}:{port}.'.format(host=host, port=port))
         server.serve_forever()
     except KeyboardInterrupt:
         log('Interrupted from keyboard.\nStopped.')
