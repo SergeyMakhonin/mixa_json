@@ -28,7 +28,7 @@ if __name__ == '__main__':
         server.register_function(get_os, 'get_os')
 
         # Register an instance; all the methods of the instance are published as XML-RPC methods
-        server.register_instance(JsonBlazer('../data/feed_4.json'))
+        server.register_instance(JsonBlazer('data/feed_4.json'))
 
         # Run the server's main loop
         log('Server is running on {host}:{port}.'.format(host=host,

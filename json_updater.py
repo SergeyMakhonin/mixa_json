@@ -41,5 +41,5 @@ def json_reader(json_path):
 
 
 if __name__ == '__main__':
-    ju = JsonUpdaterDaemon(json_reader('../config.json'))
+    ju = JsonUpdaterDaemon(json_reader('config.json'))
     ju.run()

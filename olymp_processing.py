@@ -80,7 +80,7 @@ class JsonBlazer:
 
 
 if __name__ == '__main__':
-    j = JsonBlazer('../data/feed_4.json')
+    j = JsonBlazer('data/feed_4.json')
 #    j.return_all_sports()
     j.return_all_topics()
     j.return_outcomes('Вест Хэм - Манчестер Сити')
