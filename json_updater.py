@@ -1,7 +1,7 @@
 import requests
 import json
 import time
-from python_part.simple_logger import log
+from simple_logger import log
 
 
 class JsonUpdaterDaemon:

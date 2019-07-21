@@ -1,6 +1,6 @@
 import json
 import sys
-from python_part.simple_logger import log
+from simple_logger import log
 
 # this code is for old version or JSON data
 

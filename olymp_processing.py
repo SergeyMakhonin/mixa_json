@@ -1,5 +1,5 @@
 import json
-from python_part.simple_logger import log
+from simple_logger import log
 
 
 class JsonBlazer:

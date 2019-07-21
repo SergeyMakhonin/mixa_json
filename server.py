@@ -2,9 +2,8 @@ import sys
 import platform
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
-from python_part.olymp_processing import JsonBlazer
-from python_part.simple_logger import log
-from python_part.json_updater import json_reader
+from olymp_processing import JsonBlazer
+from simple_logger import log
 
 
 # Restrict to a particular path.
