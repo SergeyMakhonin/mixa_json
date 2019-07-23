@@ -74,22 +74,52 @@ class JsonBlazer:
             log(i['topic'])
         return ','.join(topics)
 
-    def return_outcomes(self, topic_name):
-        # return values 'П1,Х,П2'
+    def return_bet_types(self, topic_name):
+        # return all bet types for topic_name  'main,nextgoal'
         try:
-            outcomes_to_return = []
-            for bet in self.outcomes[topic_name]:
-                bet_value = str(bet['factor_value'])
-                outcomes_to_return.append(bet_value)
-                log(bet_value)
-            return ','.join(outcomes_to_return)
+            bet_types = ','.join(self.outcomes[topic_name].keys())
+            log('Available bet types for {topic}: {bet_types}.'.format(topic=topic_name,
+                                                                       bet_types=bet_types))
+            return bet_types
         except KeyError:
-            log('Unable to find %s in current JSON data.' % topic_name)
+            log('Unable to return bet types for %s.' % topic_name)
+            log('No topic %s.' % topic_name)
+            return False
+
+    def return_outcomes(self, topic_name, bet_type):
+        # return values 'П1,Х,П2;1,2,3'
+        try:
+            bets = {
+                'П1': None,
+                'Х': None,
+                'П2': None
+            }
+
+            # fill bets
+            for outcome in self.outcomes[topic_name][bet_type]:
+                for key, value in outcome.items():
+                    if value in bets:
+                        bets[value] = str(outcome['factor_value'])
+
+            # now sort it as commented above
+            names = []
+            values = []
+            for key, value in bets.items():
+                names.append(key)
+                values.append(value)
+            bets_in_string = '{bet_titles};{values}'.format(bet_titles=','.join(names),
+                                                            values=','.join(values))
+            log('Available bets: %s' % bets_in_string)
+            return bets_in_string
+        except KeyError:
+            log('Unable to find outcome for {topic} and {bet_type}.'.format(topic=topic_name,
+                                                                            bet_type=bet_type))
             return False
 
 
 if __name__ == '__main__':
-    j = JsonBlazer('data/feed_4.json')
+    j = JsonBlazer('data/feed.json')
 #    j.return_all_sports()
-    j.return_all_topics()
-    j.return_outcomes('Вест Хэм - Манчестер Сити')
+#    j.return_all_topics()
+    j.return_bet_types('Хёндай Стиил (жен) - Хвачхон КСПО (жен)')
+    j.return_outcomes('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main')
