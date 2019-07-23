@@ -90,16 +90,15 @@ class JsonBlazer:
         # return values 'П1,Х,П2;1,2,3'
         try:
             bets = {
-                'П1': None,
-                'Х': None,
-                'П2': None
+#                'П1': None,
+#                'Х': None,
+#                'П2': None
             }
 
             # fill bets
             for outcome in self.outcomes[topic_name][bet_type]:
                 for key, value in outcome.items():
-                    if value in bets:
-                        bets[value] = str(outcome['factor_value'])
+                    bets[outcome['bet_title']] = str(outcome['factor_value'])
 
             # now sort it as commented above
             names = []
@@ -122,4 +121,4 @@ if __name__ == '__main__':
 #    j.return_all_sports()
 #    j.return_all_topics()
     j.return_bet_types('Хёндай Стиил (жен) - Хвачхон КСПО (жен)')
-    j.return_outcomes('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main')
+    j.return_outcomes('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'nextgoal')
