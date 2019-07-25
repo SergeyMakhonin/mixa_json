@@ -4,6 +4,7 @@ from simple_logger import log
 
 class JsonBlazer:
     def __init__(self, path):
+        self.outcome_dict = {}  # a dict of a kind 'П1': '2.22' for managing multiple bet types
         self.json_data = None
         self.outcomes = {}  # outcomes is a list of dicts {'match_name': [{key: value}, {key: value}]}
         self.sports = {}  # sports is a dict of {'football': [{keys: values}, {keys: values}, {keys: values}]}
@@ -86,19 +87,14 @@ class JsonBlazer:
             log('No topic %s.' % topic_name)
             return False
 
-    def return_outcomes(self, topic_name, bet_type):
+    def return_outcome(self, topic_name, bet_type):
         # return values 'П1,Х,П2;1,2,3'
         try:
-            bets = {
-#                'П1': None,
-#                'Х': None,
-#                'П2': None
-            }
+            bets = {}
 
             # fill bets
             for outcome in self.outcomes[topic_name][bet_type]:
-                for key, value in outcome.items():
-                    bets[outcome['bet_title']] = str(outcome['factor_value'])
+                bets[outcome['bet_title']] = str(outcome['factor_value'])
 
             # now sort it as commented above
             names = []
@@ -106,19 +102,66 @@ class JsonBlazer:
             for key, value in bets.items():
                 names.append(key)
                 values.append(value)
-            bets_in_string = '{bet_titles};{values}'.format(bet_titles=','.join(names),
-                                                            values=','.join(values))
-            log('Available bets: %s' % bets_in_string)
+            bets_in_string = '{bet_titles}\n{values}'.format(bet_titles=','.join(names),
+                                                             values=','.join(values))
+            log('Available bets for {bet_type}: {bets}'.format(bet_type=bet_type,
+                                                               bets=bets_in_string))
             return bets_in_string
         except KeyError:
             log('Unable to find outcome for {topic} and {bet_type}.'.format(topic=topic_name,
                                                                             bet_type=bet_type))
             return False
 
+    def return_outcomes(self, topic_name, bet_types):
+        # ensure that bet_types is actually a several comma-separated types of bets
+        if not ',' in bet_types:
+            log('Incorrect input: bet_types should be a csv data.')
+            return False
+
+        # ensure that outcome_dict is empty
+        if self.outcome_dict:
+            self.outcome_dict = {}
+
+        # loop via bet types and get all outcomes from each bet type
+        for bet_type in bet_types.split(','):
+            outcome = self.return_outcome(topic_name, bet_type)
+            self.parse_single_outcome(outcome)
+
+        # parse fresh formed outcomes dict to provide output string of a kind 'П1,П2,Х,П3,П4,Ч;1,2,0,3,4'
+        outcomes = self.prepare_outcomes_string()
+        log('Available bets for {bet_types}: {outcomes}'.format(bet_types=bet_types,
+                                                                outcomes=outcomes))
+        return outcomes
+
+    def parse_single_outcome(self, outcome):
+        if outcome:
+            names, values = outcome.split('\n')
+            names_list = names.split(',')
+            values_list = values.split(',')
+
+            # values and names lists should be same length, else below method wont work
+            if len(names_list) == len(values_list):
+                for name in names_list:
+                    self.outcome_dict[name] = values_list[names_list.index(name)]
+            else:
+                log('Length discrepancy: {names} -- {values}'.format(names=names_list,
+                                                                     values=values_list))
+                return False
+        else:
+            log('Unable to parse outcome because its empty.')
+
+    def prepare_outcomes_string(self):
+        keys = []
+        values = []
+        for key, value in self.outcome_dict.items():
+            keys.append(key)
+            values.append(value)
+        return ','.join(keys) + '\n' + ','.join(values)
+
 
 if __name__ == '__main__':
     j = JsonBlazer('data/feed.json')
-#    j.return_all_sports()
-#    j.return_all_topics()
+    #    j.return_all_sports()
+    #    j.return_all_topics()
     j.return_bet_types('Хёндай Стиил (жен) - Хвачхон КСПО (жен)')
-    j.return_outcomes('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'nextgoal')
+    j.return_outcomes('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main,nextgoal')
