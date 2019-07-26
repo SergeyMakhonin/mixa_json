@@ -18,48 +18,56 @@ class JsonBlazer:
         self.sports = {}
 
     def parse_json(self):
-
         # to avoid data stacking erase existing data
         self.flush()
 
         # read json file
         with open(self.json_path, encoding='utf-8') as fd:
             data = fd.read()
-            self.json_data = json.loads(data, encoding='utf-8')
+        self.json_data = json.loads(data)
 
-        for i in self.json_data:
-            if i['sport_type_title'] in self.sports:
-                sub_dict = {'id': i['sport_type_id'],
-                            'topic': i['topic'],
-                            'event_id': str(i['event_id']),
-                            'event_title': i['event_title'],
-                            'teams': (i['team1'], i['team2'],),
-                            'start_date2': i['start_date2'],
-                            'start_date_timestamp': str(i['start_date_timestamp']),
-                            'url': i['url'],
-                            'url_mobile': i['url_mobile']
-                            }
-                self.sports[i['sport_type_title']].append(sub_dict)
-            else:
-                self.sports.update(
-                    {i['sport_type_title']: [
-                        {'id': i['sport_type_id'],
-                         'topic': i['topic'],
-                         'event_id': str(i['event_id']),
-                         'event_title': i['event_title'],
-                         'teams': (i['team1'], i['team2'],),
-                         'start_date2': i['start_date2'],
-                         'start_date_timestamp': str(i['start_date_timestamp']),
-                         'url': i['url'],
-                         'url_mobile': i['url_mobile']
-                         }
-                    ]
-                    }
-                )
-            sub_dict_outcomes = {i['topic']: i['outcomes']}
-            # if we'll need to find specific outcomes do it here
-            self.outcomes.update(sub_dict_outcomes)
-        return True
+        # check if json data is a dict
+        if type(self.json_data) == str:
+            self.json_data = json.loads(self.json_data)
+
+        # check if its empty, then parse
+        if len(self.json_data) > 0:
+            for i in self.json_data:
+                if i['sport_type_title'] in self.sports:
+                    sub_dict = {'id': i['sport_type_id'],
+                                'topic': i['topic'],
+                                'event_id': str(i['event_id']),
+                                'event_title': i['event_title'],
+                                'teams': (i['team1'], i['team2'],),
+                                'start_date2': i['start_date2'],
+                                'start_date_timestamp': str(i['start_date_timestamp']),
+                                'url': i['url'],
+                                'url_mobile': i['url_mobile']
+                                }
+                    self.sports[i['sport_type_title']].append(sub_dict)
+                else:
+                    self.sports.update(
+                        {i['sport_type_title']: [
+                            {'id': i['sport_type_id'],
+                             'topic': i['topic'],
+                             'event_id': str(i['event_id']),
+                             'event_title': i['event_title'],
+                             'teams': (i['team1'], i['team2'],),
+                             'start_date2': i['start_date2'],
+                             'start_date_timestamp': str(i['start_date_timestamp']),
+                             'url': i['url'],
+                             'url_mobile': i['url_mobile']
+                             }
+                        ]
+                        }
+                    )
+                sub_dict_outcomes = {i['topic']: i['outcomes']}
+                # if we'll need to find specific outcomes do it here
+                self.outcomes.update(sub_dict_outcomes)
+            return True
+        else:
+            log('JSON file is emty.')
+            return False
 
     def return_all_sports(self):
         log('Available sports:')
@@ -68,6 +76,12 @@ class JsonBlazer:
         return ','.join(self.sports.keys())
 
     def return_all_topics(self, topic='Футбол'):
+        # check on empty
+        if len(self.sports[topic]) == 0:
+            log('JSON is empty.')
+            return False
+
+        # proceed if not empty
         topics = []
         log('Available events for %s:' % topic)
         for i in self.sports[topic]:
@@ -76,7 +90,12 @@ class JsonBlazer:
         return ','.join(topics)
 
     def return_bet_types(self, topic_name):
-        # return all bet types for topic_name  'main,nextgoal'
+        # check on empty
+        if len(self.outcomes[topic_name]) == 0:
+            log('JSON is empty.')
+            return False
+
+        # return all bet types for topic_name 'main,nextgoal'
         try:
             bet_types = ','.join(self.outcomes[topic_name].keys())
             log('Available bet types for {topic}: {bet_types}.'.format(topic=topic_name,
@@ -160,8 +179,11 @@ class JsonBlazer:
 
 
 if __name__ == '__main__':
-    j = JsonBlazer('data/feed.json')
+    #Хёндай Стиил (жен) - Хвачхон КСПО (жен)
+    #Ливерпуль - Норвич Сити
+    j = JsonBlazer('data/test.json')
     #    j.return_all_sports()
-    #    j.return_all_topics()
-    j.return_bet_types('Хёндай Стиил (жен) - Хвачхон КСПО (жен)')
-    j.return_outcomes('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main,nextgoal')
+    j.return_all_topics()
+    #j.return_bet_types('Ливерпуль - Норвич Сити')
+    #j.return_outcomes('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main,nextgoal')
+    #j.return_outcome('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main')

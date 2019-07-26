@@ -45,5 +45,5 @@ if __name__ == '__main__':
         log('Server is running on {host}:{port}.'.format(host=host, port=port))
         server.serve_forever()
     except KeyboardInterrupt:
-        log('Interrupted from keyboard.\nStopped.')
+        log('Interrupted from keyboard. Stopped.')
         sys.exit(0)
