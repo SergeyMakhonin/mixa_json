@@ -134,8 +134,11 @@ class JsonBlazer:
     def return_outcomes(self, topic_name, bet_types):
         # ensure that bet_types is actually a several comma-separated types of bets
         if not ',' in bet_types:
-            log('Incorrect input: bet_types should be a csv data.')
-            return False
+            if len(bet_types) > 0:
+                bet_types += ','
+            else:
+                log('Incorrect input: bet_types should be a csv data or a single string which is a bet type name.')
+                return False
 
         # ensure that outcome_dict is empty
         if self.outcome_dict:
@@ -143,13 +146,14 @@ class JsonBlazer:
 
         # loop via bet types and get all outcomes from each bet type
         for bet_type in bet_types.split(','):
-            outcome = self.return_outcome(topic_name, bet_type)
-            self.parse_single_outcome(outcome)
+            if bet_type:
+                outcome = self.return_outcome(topic_name, bet_type)
+                self.parse_single_outcome(outcome)
 
         # parse fresh formed outcomes dict to provide output string of a kind 'П1,П2,Х,П3,П4,Ч;1,2,0,3,4'
         outcomes = self.prepare_outcomes_string()
-        log('Available bets for {bet_types}: {outcomes}'.format(bet_types=bet_types,
-                                                                outcomes=outcomes))
+        log('All available bets for {bet_types}: {outcomes}'.format(bet_types=bet_types,
+                                                                    outcomes=outcomes))
         return outcomes
 
     def parse_single_outcome(self, outcome):
@@ -185,5 +189,5 @@ if __name__ == '__main__':
     #    j.return_all_sports()
     j.return_all_topics()
     #j.return_bet_types('Ливерпуль - Норвич Сити')
-    #j.return_outcomes('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main,nextgoal')
+    j.return_outcomes('Ливерпуль - Норвич Сити', 'main')
     #j.return_outcome('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main')

@@ -1,13 +1,13 @@
 {
   "data_source": {
     "test_source": {
-      "url": "https://feeds.mgr.com.ru/live/apl.json",
+      "url": "https://feeds.mgr.com.ru/line/apl.json",
       "file": "data/test.json"
     }
   },
   "olymp_login": "olimp",
   "olymp_password": "olimpFEEDS",
-  "server_data_file": "data/feed.json",
+  "server_data_file": "data/test.json",
   "server_host": "localhost",
   "server_port": "8000",
   "wait": 60,
