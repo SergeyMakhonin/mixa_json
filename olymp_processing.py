@@ -156,6 +156,12 @@ class JsonBlazer:
                                                                     outcomes=outcomes))
         return outcomes
 
+    def return_outcomes_no_names(self, topic_name, bet_types):
+        outcomes = self.return_outcomes(topic_name, bet_types)
+        noname_outcomes = outcomes.split('\n')[1]
+        log('Returning outcomes without names: {noname_outcomes}'.format(noname_outcomes=noname_outcomes))
+        return noname_outcomes
+
     def parse_single_outcome(self, outcome):
         if outcome:
             names, values = outcome.split('\n')
@@ -189,5 +195,6 @@ if __name__ == '__main__':
     #    j.return_all_sports()
     j.return_all_topics()
     #j.return_bet_types('Ливерпуль - Норвич Сити')
-    j.return_outcomes('Ливерпуль - Норвич Сити', 'main')
+    #j.return_outcomes('Ливерпуль - Норвич Сити', 'main')
+    j.return_outcomes_no_names('Ливерпуль - Норвич Сити', 'main')
     #j.return_outcome('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main')
