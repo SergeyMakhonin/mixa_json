@@ -132,6 +132,11 @@ class JsonBlazer:
             return False
 
     def return_outcomes(self, topic_name, bet_types):
+        # check bet_types
+        if not bet_types:
+            log('No bet types found for {topic}.'.format(topic=topic_name))
+            return False
+
         # ensure that bet_types is actually a several comma-separated types of bets
         if not ',' in bet_types:
             if len(bet_types) > 0:
