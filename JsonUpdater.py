@@ -1,12 +1,13 @@
 import requests
-from requests.auth import HTTPBasicAuth
 import json
 import time
 import xmlrpc.client
-from simple_logger import log
+from logging_and_configuration import log, json_reader
 
 
 class JsonUpdaterDaemon:
+    __slots__ = ['running', 'config', 'wait', 'xmlrpc_client']
+
     def __init__(self, json_config):
         self.running = True
         self.config = json_config
@@ -51,13 +52,6 @@ class JsonUpdaterDaemon:
 
             # wait before starting next update
             time.sleep(self.wait/2)
-
-
-def json_reader(json_path):
-    with open(json_path, 'r') as fd:
-        json_data = fd.read()
-    json_config = json.loads(json_data)
-    return json_config
 
 
 if __name__ == '__main__':

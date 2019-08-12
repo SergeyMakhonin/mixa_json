@@ -11,5 +11,9 @@
   "server_host": "localhost",
   "server_port": "8000",
   "wait": 60,
-  "log_file": "log.txt"
+  "log_file": "log.txt",
+  "storage":{
+    "host": "localhost",
+    "port": "27017"
+  }
 }
