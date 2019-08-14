@@ -6,7 +6,7 @@ from logging_and_configuration import log, json_reader
 
 
 class JsonUpdaterDaemon:
-    __slots__ = ['running', 'config', 'wait', 'xmlrpc_client']
+    __slots__ = ['running', 'config', 'wait', 'xmlrpc_client', 'creds']
 
     def __init__(self, json_config):
         self.running = True
