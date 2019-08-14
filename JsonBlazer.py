@@ -1,14 +1,16 @@
 import json
-from logging_and_configuration import log
+from StorageRavager import StorageRavager
+from logging_and_configuration import log, json_reader
 
 
-class JsonBlazer:
-    def __init__(self, path):
+class JsonBlazer(StorageRavager):
+    def __init__(self, config):
+        super().__init__(config)
         self.outcome_dict = {}  # a dict of a kind 'П1': '2.22' for managing multiple bet types
         self.json_data = None
         self.outcomes = {}  # outcomes is a list of dicts {'match_name': [{key: value}, {key: value}]}
         self.sports = {}  # sports is a dict of {'football': [{keys: values}, {keys: values}, {keys: values}]}
-        self.json_path = path
+        self.json_path = config['server_data_file']
         self.parse_json()
         log('JSON blazer initialized')
 
@@ -66,7 +68,7 @@ class JsonBlazer:
                 self.outcomes.update(sub_dict_outcomes)
             return True
         else:
-            log('JSON file is emty.')
+            log('JSON file is empty.')
             return False
 
     def return_all_sports(self):
@@ -74,6 +76,18 @@ class JsonBlazer:
         for i in self.sports:
             log(i)
         return ','.join(self.sports.keys())
+
+    def return_logos(self, sport='Футбол'):
+        # check on empty
+        if len(self.sports) == 0:
+            log('JSON is empty.')
+            return False
+
+        # call Storage Ravager
+        logo1, logo2 = self.get_team_logos(team1=self.sports['Футбол'][0]['teams'][0],
+                                           team2=self.sports['Футбол'][0]['teams'][1])
+        log('Requesting logos by Storage Ravager for: {sport}'.format(sport=sport))
+        return ','.join([logo1, logo2])
 
     def return_all_topics(self, topic='Футбол'):
         # check on empty
@@ -194,12 +208,12 @@ class JsonBlazer:
 
 
 if __name__ == '__main__':
-    #Хёндай Стиил (жен) - Хвачхон КСПО (жен)
-    #Ливерпуль - Норвич Сити
-    j = JsonBlazer('data/test.json')
-    #    j.return_all_sports()
+    # Хёндай Стиил (жен) - Хвачхон КСПО (жен)
+    # Ливерпуль - Норвич Сити
+    j = JsonBlazer(json_reader('config.json'))
     j.return_all_topics()
-    #j.return_bet_types('Ливерпуль - Норвич Сити')
-    #j.return_outcomes('Ливерпуль - Норвич Сити', 'main')
+    j.parse_json()
+    # j.return_bet_types('Ливерпуль - Норвич Сити')
+    # j.return_outcomes('Ливерпуль - Норвич Сити', 'main')
     j.return_outcomes_no_names('Ливерпуль - Норвич Сити', 'main')
-    #j.return_outcome('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main')
+    # j.return_outcome('Хёндай Стиил (жен) - Хвачхон КСПО (жен)', 'main')

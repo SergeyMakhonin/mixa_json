@@ -2,7 +2,7 @@ import sys
 import platform
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
-from olymp_processing import JsonBlazer
+from JsonBlazer import JsonBlazer
 from logging_and_configuration import log, json_reader
 from JsonUpdater import JsonUpdaterDaemon
 from StorageRavager import StorageRavager
@@ -34,11 +34,10 @@ if __name__ == '__main__':
         server.register_function(get_os, 'get_os')
 
         # Register an instance; all the methods of the instance are published as XML-RPC methods
-        server.register_instance(JsonBlazer(json_config['server_data_file']))
-        server.register_instance(StorageRavager(json_config['storage']))
+        server.register_instance(JsonBlazer(json_config))
 
         # init json updater and put it to own thread
-        ju = JsonUpdaterDaemon(json_reader('config.json'))
+        ju = JsonUpdaterDaemon(json_config)
         updater_thread = threading.Thread(target=ju.run)
         updater_thread.start()
 

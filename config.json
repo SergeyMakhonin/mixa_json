@@ -7,13 +7,14 @@
   },
   "olymp_login": "olimp",
   "olymp_password": "olimpFEEDS",
-  "server_data_file": "data/test.json",
+  "server_data_file": "data/feed.json",
   "server_host": "localhost",
   "server_port": "8000",
   "wait": 60,
   "log_file": "log.txt",
   "storage":{
-    "host": "localhost",
-    "port": "27017"
+    "host": "127.0.0.1",
+    "port": "5000",
+    "database_name": "media"
   }
 }
