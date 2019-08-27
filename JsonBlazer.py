@@ -2,9 +2,8 @@ import json
 from logging_and_configuration import log, json_reader
 
 
-class JsonBlazer(StorageRavager):
+class JsonBlazer(object):
     def __init__(self, config):
-        super().__init__(config)
         self.outcome_dict = {}  # a dict of a kind 'П1': '2.22' for managing multiple bet types
         self.json_data = None
         self.outcomes = {}  # outcomes is a list of dicts {'match_name': [{key: value}, {key: value}]}

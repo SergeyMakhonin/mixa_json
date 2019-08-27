@@ -24,6 +24,9 @@ class StorageRavager:
         # returns string of a kind: 'topic_name,team1,team1_logo_path,team2,team2_logo_path
         return ','.join(team_logo_path)
 
+    def get_team_short_name_localized(self, team):
+        pass
+
 
 if __name__ == '__main__':
     s = StorageRavager(json_reader('config.json'))
