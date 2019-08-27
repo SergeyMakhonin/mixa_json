@@ -2,10 +2,9 @@ import sys
 import platform
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
-from JsonBlazer import JsonBlazer
+from DevourersEater import DevourersEater
 from logging_and_configuration import log, json_reader
 from JsonUpdater import JsonUpdaterDaemon
-from StorageRavager import StorageRavager
 import threading
 
 
@@ -34,7 +33,7 @@ if __name__ == '__main__':
         server.register_function(get_os, 'get_os')
 
         # Register an instance; all the methods of the instance are published as XML-RPC methods
-        server.register_instance(JsonBlazer(json_config))
+        server.register_instance(DevourersEater(json_config))
 
         # init json updater and put it to own thread
         ju = JsonUpdaterDaemon(json_config)
