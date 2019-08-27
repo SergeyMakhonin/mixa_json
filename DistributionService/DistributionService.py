@@ -14,7 +14,7 @@ class DistributionService:
 
     def lookup(self, root):
         # form a file list to distribute
-        log('Looking for files...')
+        log('Looking for files in {root}...'.format(root=root))
         for s in os.listdir(root):
             if '.' and '_' in s:
                 self.file_dict[s] = ''
