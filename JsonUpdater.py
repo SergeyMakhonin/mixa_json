@@ -24,7 +24,7 @@ class JsonUpdaterDaemon:
     def update(self):
         if self.config:
             for source in self.config['data_source']:
-                log('Requesting data source {url}, to be written to "{file}"'.format(url=self.config['data_source'][source]['url'],
+                log('Requesting json_data source {url}, to be written to "{file}"'.format(url=self.config['data_source'][source]['url'],
                                                                                      file=self.config['data_source'][source]['file']))
                 try:
                     r = requests.get(self.config['data_source'][source]['url'], auth=self.creds)
@@ -39,7 +39,7 @@ class JsonUpdaterDaemon:
                 except requests.ConnectionError:
                     log('Unable to connect to {url}.'.format(url=self.config['data_source']['test_source']['url']))
         else:
-            log('No data sources configured: stopping')
+            log('No json_data sources configured: stopping')
             self.running = False
 
     def run(self):

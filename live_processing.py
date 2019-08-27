@@ -3,12 +3,12 @@ import sys
 from logging_and_configuration import log
 
 
-# this code is for old version or JSON data
+# this code is for old version or JSON json_data
 
 
 class JsonGrinder:
     def __init__(self):
-        self.path = 'data/live.json'
+        self.path = 'json_data/live.json'
         self.json_data = None
         self.sports = []
         self.league = []
@@ -96,11 +96,11 @@ if __name__ == '__main__':
     try:
         path = sys.argv[1]
     except IndexError as e:
-        path = 'data/live.json'
+        path = 'json_data/live.json'
         print('Exception: %s.' % e)
         print('No input file provided, using default "%s".' % path)
 
-    # init JsonGrinder that will contain all JSON data parsed
+    # init JsonGrinder that will contain all JSON json_data parsed
     rt = JsonGrinder()
 
     # load JSON file

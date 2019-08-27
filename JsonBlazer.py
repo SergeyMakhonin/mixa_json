@@ -20,7 +20,7 @@ class JsonBlazer(StorageRavager):
         self.sports = {}
 
     def parse_json(self):
-        # to avoid data stacking erase existing data
+        # to avoid json_data stacking erase existing json_data
         self.flush()
 
         # read json file
@@ -28,7 +28,7 @@ class JsonBlazer(StorageRavager):
             data = fd.read()
         self.json_data = json.loads(data)
 
-        # check if json data is a dict
+        # check if json json_data is a dict
         if type(self.json_data) == str:
             self.json_data = json.loads(self.json_data)
 
@@ -156,7 +156,7 @@ class JsonBlazer(StorageRavager):
             if len(bet_types) > 0:
                 bet_types += ','
             else:
-                log('Incorrect input: bet_types should be a csv data or a single string which is a bet type name.')
+                log('Incorrect input: bet_types should be a csv json_data or a single string which is a bet type name.')
                 return False
 
         # ensure that outcome_dict is empty

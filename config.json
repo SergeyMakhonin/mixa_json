@@ -1,7 +1,7 @@
 {
   "data_source": {
     "test_source": {
-      "url": "https://feeds.mgr.com.ru/line/apl.json",
+      "url": "https://feeds.mgr.com.ru/apl/line/apl.json",
       "file": "data/test.json"
     }
   },
@@ -16,5 +16,9 @@
     "host": "127.0.0.1",
     "port": "5000",
     "database_name": "media"
+  },
+  "distribution_service":{
+    "roots": ["C:\\Users\\fox87\\PycharmProjects\\mixa_json\\distribution_data"],
+    "refresh_interval": 10
   }
 }
