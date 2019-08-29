@@ -17,7 +17,7 @@ class DistributionService:
         # form a file list to distribute
         log('Looking for files in {root}...'.format(root=root))
         for s in os.listdir(root):
-            if '.' and '_' in s:
+            if '.' and self.delimiter in s:
                 self.file_dict[s] = ''
         time.sleep(self.refresh_interval)
 
