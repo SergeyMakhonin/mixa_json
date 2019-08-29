@@ -8,6 +8,7 @@ from logging_and_configuration import log, json_reader
 class DistributionService:
     def __init__(self, config):
         self.refresh_interval = config['distribution_service']['refresh_interval']
+        self.delimiter = config['distribution_service']['delimiter']
         self.roots = config['distribution_service']['roots']
         self.file_dict = {}  # this file list is a dict of a kind 'file name': 'generated destination'
         log('Distribution service initialized.')
@@ -22,7 +23,7 @@ class DistributionService:
 
     def process_filename(self, name, root):
         log('Parsing filename: {name}'.format(name=name))
-        parsed_name = name.split('_', 2)
+        parsed_name = name.split(self.delimiter, 2)
         generated_path = os.path.join(root, parsed_name[0], parsed_name[1])
         self.file_dict[name] = os.path.join(root, generated_path)
 

@@ -19,6 +19,7 @@
   },
   "distribution_service":{
     "roots": ["C:\\Users\\fox87\\PycharmProjects\\mixa_json\\distribution_data"],
-    "refresh_interval": 10
+    "refresh_interval": 10,
+    "delimiter": "_"
   }
 }
