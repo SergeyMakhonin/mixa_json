@@ -36,7 +36,7 @@ class DistributionService:
 
         # moving here
         log('Moving {name} to {path}...'.format(name=name, path=path))
-        shutil.move(original_full_file_path, new_file_path)
+        shutil.move(original_full_file_path, os.path.join(new_file_path, name))
 
     def run(self):
         log('Distribution service is running...')
