@@ -47,9 +47,6 @@ class JsonUpdaterDaemon:
     def run(self):
         while self.running:
             self.update()
-
-            # wait after update, before asking server to re-read json
-            #time.sleep(self.wait / 2)
             self.refresh_data()
 
             # wait before starting next update
