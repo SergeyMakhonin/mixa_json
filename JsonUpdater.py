@@ -12,8 +12,9 @@ class JsonUpdaterDaemon:
         self.running = True
         self.config = json_config
         self.wait = json_config['wait']
-        self.xmlrpc_client = xmlrpc.client.ServerProxy('http://{host}:{port}/RPC2'.format(host=self.config['server_host'],
-                                                                                          port=self.config['server_port']))
+        self.xmlrpc_client = xmlrpc.client.ServerProxy(
+            'http://{host}:{port}/RPC2'.format(host=self.config['server_host'],
+                                               port=self.config['server_port']))
         self.creds = (json_config['olymp_login'], json_config['olymp_password'])
         log('JSON Updater initialized.')
 
@@ -24,8 +25,9 @@ class JsonUpdaterDaemon:
     def update(self):
         if self.config:
             for source in self.config['data_source']:
-                log('Requesting json_data source {url}, to be written to "{file}"'.format(url=self.config['data_source'][source]['url'],
-                                                                                     file=self.config['data_source'][source]['file']))
+                log('Requesting json_data source {url}, to be written to "{file}"'.format(
+                    url=self.config['data_source'][source]['url'],
+                    file=self.config['data_source'][source]['file']))
                 try:
                     r = requests.get(self.config['data_source'][source]['url'], auth=self.creds)
                     if r.status_code == 200:
@@ -47,14 +49,14 @@ class JsonUpdaterDaemon:
             self.update()
 
             # wait after update, before asking server to re-read json
-            time.sleep(self.wait/2)
+            #time.sleep(self.wait / 2)
             self.refresh_data()
 
             # wait before starting next update
-            time.sleep(self.wait/2)
+            time.sleep(self.wait / 2)
 
 
 if __name__ == '__main__':
     ju = JsonUpdaterDaemon(json_reader('config.json'))
-    #ju.run()
-    #ju.update()
+    # ju.run()
+    # ju.update()
