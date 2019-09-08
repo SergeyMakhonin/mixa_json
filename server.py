@@ -35,7 +35,7 @@ if __name__ == '__main__':
         # Register an instance; all the methods of the instance are published as XML-RPC methods
         server.register_instance(DevourersEater(json_config))
 
-        # init json updater and put it to own thread
+        # init json updater and put it in its own thread
         ju = JsonUpdaterDaemon(json_config)
         updater_thread = threading.Thread(target=ju.run)
         updater_thread.start()

@@ -1,7 +1,7 @@
-from flask import Flask, jsonify, request
-from logging_and_configuration import log, json_reader
+from flask import Flask, request
+from logging_and_configuration import log
 from pymongo import MongoClient
-from storage_app.settings import *
+from StorageApp.settings import *
 
 app = Flask(__name__)
 
