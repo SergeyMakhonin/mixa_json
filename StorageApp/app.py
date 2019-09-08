@@ -20,12 +20,15 @@ def return_team_data(sub_path):
 
     # search in collection
     team_document = teams.find_one({"name_epl": request.args['team']})
+
+    log('Returning data from {database}/{collection}, requested epl_name = {name}'.format(database=schema,
+                                                                                          collection=collection,
+                                                                                          name=request.args['team']))
     del team_document['_id']
     return json.dumps(team_document, ensure_ascii=False)
 
 
 if __name__ == '__main__':
-
     # init client for 'media' database
     client = MongoClient(MONGO_HOST, MONGO_PORT)
     log('Created MongoDB client.')
