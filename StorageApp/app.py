@@ -19,9 +19,9 @@ def return_team_data(sub_path):
     teams = db[collection]
 
     # search in collection
-    team_document = teams.find_one({"name_epl": request.args['team']})
+    team_document = teams.find_one({"name_olimp": request.args['team']})
 
-    log('Returning data from {database}/{collection}, requested epl_name = {name}'.format(database=schema,
+    log('Returning data from {database}/{collection}, requested name_olimp = {name}'.format(database=schema,
                                                                                           collection=collection,
                                                                                           name=request.args['team']))
     del team_document['_id']
