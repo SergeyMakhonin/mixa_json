@@ -40,8 +40,6 @@ if __name__ == '__main__':
         updater_thread = threading.Thread(target=ju.run)
         updater_thread.start()
 
-        # init storage updater
-
         # Run the server's main loop
         log('Server is running on {host}:{port}.'.format(host=host, port=port))
         server.serve_forever()

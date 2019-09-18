@@ -4,10 +4,11 @@ import requests
 from logging_and_configuration import log, json_reader
 
 
-class StorageRavager:
+class StorageRavager(object):
     __slots__ = ['config']
 
     def __init__(self, config):
+        super(StorageRavager, self).__init__()
         self.config = config
         log('Storage Ravager initialized.')
 
