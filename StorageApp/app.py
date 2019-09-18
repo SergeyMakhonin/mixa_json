@@ -21,11 +21,17 @@ def return_team_data(sub_path):
     # search in collection
     team_document = teams.find_one({"name_olimp": request.args['team']})
 
-    log('Returning data from {database}/{collection}, requested name_olimp = {name}'.format(database=schema,
-                                                                                          collection=collection,
-                                                                                          name=request.args['team']))
-    del team_document['_id']
-    return json.dumps(team_document, ensure_ascii=False)
+    # handle empty result
+    try:
+        log('Returning data from {database}/{collection}, requested name_olimp = {name}'.format(database=schema,
+                                                                                                collection=collection,
+                                                                                                name=request.args[
+                                                                                                    'team']))
+        del team_document['_id']
+        return json.dumps(team_document, ensure_ascii=False)
+    except Exception as e:
+        log('An exception occurred: %s' % e)
+        return False
 
 
 if __name__ == '__main__':
