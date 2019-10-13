@@ -45,7 +45,14 @@ def write_to_file(path, data_string):
 while True:
     # request all topics available and put them in the combobox
     try:
-        window.Element('topic_combobox').Values = s.return_all_topics().split(',')
+        topics = s.return_all_topics().split(',')
+        bet_types = []
+        for topic in topics:
+            bet_types.extend(s.return_bet_types(topic).split(','))
+
+        # load topics to UI
+        window.Element('topic_combobox').Values = topics
+        window.Element('bet_types_combobox').Values = bet_types
     except ConnectionRefusedError as e:
         PySimpleGUI.PopupError('Server is not running: {e}'.format(e=e))
         sys.exit(1)
@@ -54,15 +61,6 @@ while True:
     event, values = window.Read()
     if event in (None, 'Exit'):
         break
-
-    elif event == 'topic_combobox':
-        # get bet types for chosen topic
-        chosen_topic = window.Element('topic_combobox').Get()
-        bet_types = s.return_bet_types(chosen_topic).split(',')
-
-        # put bet types to its combobox
-        window.Element('bet_types_combobox').Values = bet_types
-        window.Finalize()
 
     elif event == 'bet_types_combobox':
         # get chosen bet type and topic from combobox
@@ -73,6 +71,7 @@ while True:
         outcomes = s.return_outcomes(chosen_topic, chosen_bet_type)
 
         # show outcomes on their label
+        window.Finalize()
         window.Element('outcomes').Update(outcomes)
 
         write_to_file(config['outcomes_file'], outcomes)
