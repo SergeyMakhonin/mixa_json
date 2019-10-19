@@ -21,5 +21,9 @@
     "roots": ["C:\\Users\\fox87\\PycharmProjects\\mixa_json\\distribution_data"],
     "refresh_interval": 10,
     "delimiter": "_"
+  },
+  "opta_reaper": {
+    "opta_host": "http://lm3.cloud.opta.net",
+    "timeout": 5
   }
 }
