@@ -24,6 +24,9 @@
   },
   "opta_reaper": {
     "opta_host": "http://lm3.cloud.opta.net",
-    "timeout": 5
+    "timeout": 5,
+    "competitions_to_reap": "Premier League 2019",
+    "match_dates": ["2019-10-19"],
+    "match_to_reap": [""]
   }
 }
