@@ -59,6 +59,33 @@ class StorageRavager(object):
         log('Returning short name localized: %s' % name_short_localized)
         return name_short_localized
 
+    def get_presenter(self, presenter):
+        # form request url
+        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage']['host'],
+                                                                 port=self.config['storage']['port'],
+                                                                 database=self.config['storage']['database_name'])
+        payload = {'presenter': presenter}
+        r = requests.get(url, params=payload)
+
+        if r.status_code != 200:
+            log('Database returned response code %d.' % r.status_code)
+            log('Please check StorageApp log, collection or collection field may not exist.')
+            return r.status_code
+
+        # parse text
+        response_dict = json.loads(r.text)
+
+        # get presenter's name
+        presenter_name = response_dict['name']
+        presenter_position = response_dict['position']
+        presenter_social = response_dict['vkpage']
+
+        # returns string
+        log('Returning presenter info: {name}, position: {position}, social: {social}'.format(name=presenter_name,
+                                                                                              position=presenter_position,
+                                                                                              social=presenter_social))
+        return ','.join([presenter_name, presenter_position, presenter_social])
+
 
 if __name__ == '__main__':
     s = StorageRavager(json_reader('config.json'))
