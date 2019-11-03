@@ -2,4 +2,4 @@ requests
 pymongo
 flask
 PySimpleGUI
-selenium
+
