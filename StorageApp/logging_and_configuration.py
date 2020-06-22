@@ -1,13 +1,21 @@
 import datetime
 import json
 
+name = 'server_log.txt'
 
-def log(to_log, fd=None):
-    string_to_log = '[{timestamp}] {data}'.format(timestamp=datetime.datetime.now(),
-                                                  data=to_log)
+
+def prepare_logfile():
+    a = open(name, 'w')
+    a.close()
+    log("server log file {name} prepared.".format(name=name), fd=False)
+
+
+def log(to_log, fd=True):
+    string_to_log = '[{timestamp}] {data}'.format(timestamp=datetime.datetime.now(), data=to_log)
     print(string_to_log)
     if fd:
-        print(string_to_log, file=fd)
+        with open(name, 'a') as log_file_descriptor:
+            print(string_to_log, file=log_file_descriptor)
 
 
 def json_reader(json_path):

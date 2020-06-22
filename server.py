@@ -3,7 +3,7 @@ import platform
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
 from DevourersEater import DevourersEater
-from logging_and_configuration import log, json_reader
+from logging_and_configuration import log, json_reader, prepare_logfile
 from JsonUpdater import JsonUpdaterDaemon
 import threading
 
@@ -20,6 +20,9 @@ def get_os():
 
 if __name__ == '__main__':
     try:
+        # prepare server log
+        prepare_logfile()
+
         # read config
         json_config = json_reader('config.json')
 
