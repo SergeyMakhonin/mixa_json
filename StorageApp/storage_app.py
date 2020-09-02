@@ -49,4 +49,4 @@ if __name__ == '__main__':
 
     # starting database manager
     log('Starting database manager...')
-    app.run(debug=False, host=storage_app_host, port=storage_app_port)
+    app.run(debug=True, host=storage_app_host, port=storage_app_port)

@@ -38,7 +38,7 @@ class StorageRavager(object):
 
     def get_team_short_name(self, team):
         # form request url
-        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage_app']['host'],
+        url = 'http://{host}:{port}/api/{database}/Teams'.format(host=self.config['storage_app']['host'],
                                                                  port=self.config['storage_app']['port'],
                                                                  database=self.config['storage_app']['database_name'])
         payload = {'team': team}
