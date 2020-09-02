@@ -1,5 +1,27 @@
-import json
+import json, datetime
 from logging_and_configuration import log, json_reader
+
+
+def get_data_file_list(json_path):
+    # read json file
+    with open(json_path, 'r', encoding='utf-8') as fd:
+        data = fd.read()
+    if not data:
+        json_data = []
+    else:
+        json_data = json.loads(data)
+
+    # check if json json_data is not str
+    if type(json_data) == str:
+        json_data = json.loads(json_data)
+    return json_data
+
+
+def parse_13_digits_timestamp(timestamp, return_template):
+    # full template: your_dt.strftime("%Y-%m-%d %H:%M:%S")
+    your_dt = datetime.datetime.fromtimestamp(int(timestamp) / 1000)
+    if return_template == 'hh:mm':
+        return your_dt.strftime("%H:%M")
 
 
 class JsonBlazer(object):
@@ -9,12 +31,12 @@ class JsonBlazer(object):
         self.json_data = None
         self.outcomes = {}  # outcomes is a list of dicts {'match_name': [{key: value}, {key: value}]}
         self.sports = {}  # sports is a dict of {'football': [{keys: values}, {keys: values}, {keys: values}]}
-        self.json_path = config['server_data_file']
+        self.json_paths = config['server_data_files']
         self.parse_json()
         log('JSON blazer initialized')
 
     def flush(self):
-        self.json_data = None
+        self.json_data = []
         self.outcomes = {}
         self.sports = {}
 
@@ -22,14 +44,8 @@ class JsonBlazer(object):
         # to avoid json_data stacking erase existing json_data
         self.flush()
 
-        # read json file
-        with open(self.json_path, encoding='utf-8') as fd:
-            data = fd.read()
-        self.json_data = json.loads(data)
-
-        # check if json json_data is a dict
-        if type(self.json_data) == str:
-            self.json_data = json.loads(self.json_data)
+        for path in self.json_paths:
+            self.json_data.extend(get_data_file_list(path))
 
         # check if its empty, then parse
         if len(self.json_data) > 0:
@@ -96,7 +112,7 @@ class JsonBlazer(object):
 
         # proceed if not empty
         topics = []
-        log('Available events for %s:' % topic)
+        log('Available events for {topic}:'.format(topic=topic))
         for i in self.sports[topic]:
             topics.append(i['topic'])
             log(i['topic'])

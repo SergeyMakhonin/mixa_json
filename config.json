@@ -1,13 +1,30 @@
 {
   "data_source": {
-    "test_source": {
+    "apl_live": {
+      "url": "https://feeds.mgr.com.ru/apl/live/apl.json",
+      "file": "json_data/apl_live.json"
+    },
+    "apl_line": {
       "url": "https://feeds.mgr.com.ru/apl/line/apl.json",
-      "file": "json_data/test.json"
+      "file": "json_data/apl_line.json"
+    },
+    "mls_live": {
+      "url": "https://feeds.mgr.com.ru/mls/live/apl.json",
+      "file": "json_data/mls_live.json"
+    },
+    "mls_line": {
+      "url": "https://feeds.mgr.com.ru/mls/line/apl.json",
+      "file": "json_data/mls_line.json"
     }
   },
   "olymp_login": "olimp",
   "olymp_password": "olimpFEEDS",
-  "server_data_file": "json_data/feed.json",
+  "server_data_files": [
+    "json_data/apl_live.json",
+    "json_data/apl_line.json",
+    "json_data/mls_live.json",
+    "json_data/mls_line.json"
+  ],
   "server_host": "localhost",
   "server_port": "8000",
   "wait": 60,
