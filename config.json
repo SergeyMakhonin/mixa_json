@@ -29,10 +29,14 @@
   "server_port": "8000",
   "wait": 60,
   "log_file": "log.txt",
-  "storage":{
+  "storage_app":{
     "host": "127.0.0.1",
     "port": "5000",
-    "database_name": "data"
+    "database_name": "Data"
+  },
+  "mongo":{
+    "host": "10.60.51.9",
+    "port": 27017
   },
   "distribution_service":{
     "roots": ["C:\\Users\\fox87\\PycharmProjects\\mixa_json\\distribution_data"],
