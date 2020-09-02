@@ -1,4 +1,4 @@
 
-MONGO_HOST = 'localhost'
+MONGO_HOST = '10.60.51.9'
 MONGO_PORT = 27017
 

@@ -17,13 +17,6 @@ def get_data_file_list(json_path):
     return json_data
 
 
-def parse_13_digits_timestamp(timestamp, return_template):
-    # full template: your_dt.strftime("%Y-%m-%d %H:%M:%S")
-    your_dt = datetime.datetime.fromtimestamp(int(timestamp) / 1000)
-    if return_template == 'hh:mm':
-        return your_dt.strftime("%H:%M")
-
-
 class JsonBlazer(object):
     def __init__(self, config):
         super(JsonBlazer, self).__init__(config)
@@ -196,6 +189,29 @@ class JsonBlazer(object):
         log('Returning outcomes without names: {noname_outcomes}'.format(noname_outcomes=noname_outcomes))
         return noname_outcomes
 
+    def get_match_start_date(self, topic_name, sport_type='Футбол'):
+        return_template = 'hh:mm'
+
+        # check on empty
+        if len(self.outcomes[topic_name]) == 0:
+            log('JSON is empty.')
+            return False
+
+        timestamp = None
+        # find start_date_timestamp by topic_name
+        for i in self.sports[sport_type]:
+            if i['topic'] == topic_name:
+                timestamp = i['start_date_timestamp']
+                break
+
+        # check if timestamp found - return it
+        # if not - return False
+        if timestamp:
+            return parse_13_digits_timestamp(timestamp, return_template)
+        else:
+            log("Unable to find start_date_timestamp: topic mismatch")
+            return False
+
     def parse_single_outcome(self, outcome):
         if outcome:
             names, values = outcome.split('\n')
@@ -220,6 +236,13 @@ class JsonBlazer(object):
             keys.append(key)
             values.append(value)
         return ','.join(keys) + '\n' + ','.join(values)
+
+
+def parse_13_digits_timestamp(timestamp, return_template):
+    # full template: your_dt.strftime("%Y-%m-%d %H:%M:%S")
+    your_dt = datetime.datetime.fromtimestamp(int(timestamp) / 1000)
+    if return_template == 'hh:mm':
+        return your_dt.strftime("%H:%M")
 
 
 if __name__ == '__main__':

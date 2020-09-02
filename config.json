@@ -25,25 +25,18 @@
     "json_data/mls_live.json",
     "json_data/mls_line.json"
   ],
-  "server_host": "localhost",
+  "server_host": "10.60.51.163",
   "server_port": "8000",
   "wait": 60,
   "log_file": "log.txt",
   "storage":{
     "host": "127.0.0.1",
     "port": "5000",
-    "database_name": "media"
+    "database_name": "data"
   },
   "distribution_service":{
     "roots": ["C:\\Users\\fox87\\PycharmProjects\\mixa_json\\distribution_data"],
     "refresh_interval": 10,
     "delimiter": "_"
-  },
-  "opta_reaper": {
-    "opta_host": "http://lm3.cloud.opta.net",
-    "timeout": 5,
-    "competitions_to_reap": "Premier League 2019",
-    "match_dates": ["2019-10-19"],
-    "match_to_reap": [""]
   }
 }

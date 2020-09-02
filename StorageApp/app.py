@@ -34,33 +34,6 @@ def return_team_data(sub_path):
         return False
 
 
-@app.route('/api/<path:sub_path>', methods=['GET'])
-def return_team_data(sub_path):
-    # should return available collections content (records)
-    schema, collection = sub_path.split('/', 1)
-
-    # get schema (database) access
-    db = client[schema]
-
-    # get a collection (table) access
-    commentors = db[collection]
-
-    # search in collection
-    commentor_document = commentors.find_one({"name": request.args['commentor']})
-
-    # handle empty result
-    try:
-        log('Returning data from {database}/{collection}, requested name_olimp = {name}'.format(database=schema,
-                                                                                                collection=collection,
-                                                                                                name=request.args[
-                                                                                                    'commentor']))
-        del commentor_document['_id']
-        return json.dumps(commentor_document, ensure_ascii=False)
-    except Exception as e:
-        log('An exception occurred: %s' % e)
-        return False
-
-
 if __name__ == '__main__':
     # init client for 'media' database
     client = MongoClient(MONGO_HOST, MONGO_PORT)
