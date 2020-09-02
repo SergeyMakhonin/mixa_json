@@ -15,9 +15,9 @@ class StorageRavager(object):
     def get_team_logo(self, team):
 
         # form request url
-        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage']['host'],
-                                                                 port=self.config['storage']['port'],
-                                                                 database=self.config['storage']['database_name'])
+        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage_app']['host'],
+                                                                 port=self.config['storage_app']['port'],
+                                                                 database=self.config['storage_app']['database_name'])
         payload = {'team': team}
         r = requests.get(url, params=payload)
 
@@ -38,9 +38,9 @@ class StorageRavager(object):
 
     def get_team_short_name(self, team):
         # form request url
-        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage']['host'],
-                                                                 port=self.config['storage']['port'],
-                                                                 database=self.config['storage']['database_name'])
+        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage_app']['host'],
+                                                                 port=self.config['storage_app']['port'],
+                                                                 database=self.config['storage_app']['database_name'])
         payload = {'team': team}
         r = requests.get(url, params=payload)
 
@@ -61,9 +61,9 @@ class StorageRavager(object):
 
     def get_team_short_name_localized(self, team):
         # form request url
-        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage']['host'],
-                                                                 port=self.config['storage']['port'],
-                                                                 database=self.config['storage']['database_name'])
+        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage_app']['host'],
+                                                                 port=self.config['storage_app']['port'],
+                                                                 database=self.config['storage_app']['database_name'])
         payload = {'team': team}
         r = requests.get(url, params=payload)
 
@@ -84,9 +84,9 @@ class StorageRavager(object):
 
     def get_presenter(self, presenter):
         # form request url
-        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage']['host'],
-                                                                 port=self.config['storage']['port'],
-                                                                 database=self.config['storage']['database_name'])
+        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage_app']['host'],
+                                                                 port=self.config['storage_app']['port'],
+                                                                 database=self.config['storage_app']['database_name'])
         payload = {'presenter': presenter}
         r = requests.get(url, params=payload)
 

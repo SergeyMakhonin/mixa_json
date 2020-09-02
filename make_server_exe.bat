@@ -1,1 +1,1 @@
-pyinstaller server.py
+pyinstaller --onefile server.py

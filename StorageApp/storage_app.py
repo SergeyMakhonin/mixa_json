@@ -1,6 +1,6 @@
 from flask import Flask, request
 import json
-from logging_and_configuration import log
+from logging_and_configuration import log, json_reader
 from pymongo import MongoClient
 
 app = Flask(__name__)
@@ -36,13 +36,17 @@ def return_team_data(sub_path):
 if __name__ == '__main__':
 
     # settings
-    MONGO_HOST = '10.60.51.9'
-    MONGO_PORT = 27017
+    # read config
+    json_config = json_reader('config.json')
+    MONGO_HOST = json_config['mongo']['host']
+    MONGO_PORT = json_config['mongo']['port']
+    storage_app_host = json_config['storage_app']['host']
+    storage_app_port = json_config['storage_app']['port']
 
     # init client for 'media' database
-    client = MongoClient(MONGO_HOST, MONGO_PORT)
+    client = MongoClient(MONGO_HOST, int(MONGO_PORT))
     log('Created MongoDB client.')
 
     # starting database manager
     log('Starting database manager...')
-    app.run(debug=False)
+    app.run(debug=False, host=storage_app_host, port=storage_app_port)
