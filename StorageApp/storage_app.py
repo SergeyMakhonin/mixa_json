@@ -1,10 +1,7 @@
-from bson import ObjectId, json_util
-from flask.json import JSONEncoder, jsonify
-from mongoengine.base import BaseDocument
+from bson import ObjectId
+from flask.json import JSONEncoder
 from flask import Flask, request
 import json
-
-from mongoengine.queryset.base import BaseQuerySet
 
 from logging_and_configuration import log, json_reader
 from pymongo import MongoClient
@@ -36,9 +33,6 @@ def return_team_data(sub_path):
 
     # handle empty result
     try:
-        #del team_document['_id']
-        #return json.dumps(team_document, ensure_ascii=False)
-        #return json_util.dumps(team_document)
         return json.dumps(team_document, cls=JSONEncoder)
     except Exception as e:
         log('An exception occurred: %s' % e)
@@ -61,4 +55,4 @@ if __name__ == '__main__':
 
     # starting database manager
     log('Starting database manager...')
-    app.run(debug=True, host=storage_app_host, port=storage_app_port)
+    app.run(debug=False, host=storage_app_host, port=storage_app_port)
