@@ -15,7 +15,7 @@ class StorageRavager(object):
     def get_team_logo(self, team):
 
         # form request url
-        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage_app']['host'],
+        url = 'http://{host}:{port}/api/{database}/Teams'.format(host=self.config['storage_app']['host'],
                                                                  port=self.config['storage_app']['port'],
                                                                  database=self.config['storage_app']['database_name'])
         payload = {'team': team}
@@ -61,7 +61,7 @@ class StorageRavager(object):
 
     def get_team_short_name_localized(self, team):
         # form request url
-        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage_app']['host'],
+        url = 'http://{host}:{port}/api/{database}/Teams'.format(host=self.config['storage_app']['host'],
                                                                  port=self.config['storage_app']['port'],
                                                                  database=self.config['storage_app']['database_name'])
         payload = {'team': team}
@@ -84,7 +84,7 @@ class StorageRavager(object):
 
     def get_presenter(self, presenter):
         # form request url
-        url = 'http://{host}:{port}/api/{database}/teams'.format(host=self.config['storage_app']['host'],
+        url = 'http://{host}:{port}/api/{database}/Teams'.format(host=self.config['storage_app']['host'],
                                                                  port=self.config['storage_app']['port'],
                                                                  database=self.config['storage_app']['database_name'])
         payload = {'presenter': presenter}
@@ -112,5 +112,7 @@ class StorageRavager(object):
 
 if __name__ == '__main__':
     s = StorageRavager(json_reader('config.json'))
-    s.get_team_logo("Arsenal")  # "Хвачхон КСПО (жен)"
-    s.get_team_short_name_localized('Arsenal')
+    s.get_team_short_name('Арсенал')
+    s.get_team_logo("Арсенал")  # "Хвачхон КСПО (жен)"
+    s.get_team_short_name_localized('Арсенал')
+

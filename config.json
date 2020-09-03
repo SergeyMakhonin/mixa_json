@@ -30,7 +30,7 @@
   "wait": 60,
   "log_file": "log.txt",
   "storage_app":{
-    "host": "localahost",
+    "host": "localhost",
     "port": "5000",
     "database_name": "Data"
   },

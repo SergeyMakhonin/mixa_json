@@ -1,7 +1,21 @@
+from bson import ObjectId, json_util
+from flask.json import JSONEncoder, jsonify
+from mongoengine.base import BaseDocument
 from flask import Flask, request
 import json
+
+from mongoengine.queryset.base import BaseQuerySet
+
 from logging_and_configuration import log, json_reader
 from pymongo import MongoClient
+
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
 
 app = Flask(__name__)
 
@@ -22,15 +36,13 @@ def return_team_data(sub_path):
 
     # handle empty result
     try:
-        log('Returning data from {database}/{collection}, requested name_olimp = {name}'.format(database=schema,
-                                                                                                collection=collection,
-                                                                                                name=request.args[
-                                                                                                    'team']))
-        del team_document['_id']
-        return json.dumps(team_document, ensure_ascii=False)
+        #del team_document['_id']
+        #return json.dumps(team_document, ensure_ascii=False)
+        #return json_util.dumps(team_document)
+        return json.dumps(team_document, cls=JSONEncoder)
     except Exception as e:
         log('An exception occurred: %s' % e)
-        return False
+        return str(e)
 
 
 if __name__ == '__main__':
