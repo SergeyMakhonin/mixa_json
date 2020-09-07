@@ -97,6 +97,17 @@ class JsonBlazer(object):
         log('Requesting logos by Storage Ravager for: {sport}'.format(sport=sport))
         return ','.join([logo1, logo2])
 
+    def return_team_names(self, topic_name, sport_type='Футбол'):
+        # check on empty
+        if len(self.sports) == 0:
+            log('JSON is empty.')
+            return False
+
+        # determine team names by topic_name
+        for i in self.sports[sport_type]:
+            if i['topic'] == topic_name:
+                return ','.join(i['teams'])
+
     def return_all_topics(self, topic='Футбол'):
         # check on empty
         if len(self.sports[topic]) == 0:
